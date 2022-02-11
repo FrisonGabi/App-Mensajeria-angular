@@ -1,0 +1,71 @@
+
+
+body {
+    background-color: rgb(205, 190, 219);
+    font-family: monospace;
+    margin: auto;
+    text-align: center;
+}
+
+.login-form, .contenedor{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.login-form input[type="password"],
+.login-form input[type="text"]{
+
+    width: 100%;
+    padding: 15px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+
+}
+
+.btn-login{
+    width: 100%;
+    padding: 15px;
+    background-color: blueviolet;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    color: azure;
+}
+
+.btn-login:hover, .btn-login:active{
+    color: #fff;
+    background-color: #6624c9;
+    border-color: #6624c9;
+}
+.btn-login:focus{
+    box-shadow: 0 0 0 3px rgba(121, 82, 179,0.25);
+}
+
+.btn-register{
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    margin-top: 20px;
+    background-color: green;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    color: azure;
+    text-decoration: none;
+    display: block;
+    appearance: button;
+}
+
+.btn-register:hover, .btn-register:active{
+    color: #fff;
+    background-color: rgb(3, 214, 3);
+    border-color: rgb(3, 214, 3);
+}
+.btn-register:focus{
+    box-shadow: 0 0 0 3px rgba(121, 82, 179,0.25);
+}
