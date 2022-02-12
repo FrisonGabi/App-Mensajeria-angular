@@ -12,10 +12,26 @@
     <h1>Pagina de Inicio</h1>
 
     <% if (login) {%> 
-        <h1>El usuario conectado es: <strong><%= name %> </strong></h1>
+        <h1>El usuario conectado es: <strong><%= user %> </strong></h1>
         <a href="logout" class="logout">LogOut</a>
+
+        <form action="" method="post">
+
+            <select name="user" id="user">
+                <% data.forEach(e =>{ %>
+                    <option value="<%=e.user%>"><%= e.user %> </option>    
+                <%}) %> 
+            </select>
+
+            <textarea user="" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="Enviar">
+        </form>
+
+      
+
+
     <% }else{ %>
-        <h1><strong><%=name %></strong></h1>
+        <h1><strong><%=user%></strong></h1>
         <a href="login" class="login">Login</a>
     <% } %>       
 </body>

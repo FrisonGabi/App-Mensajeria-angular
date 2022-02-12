@@ -7,11 +7,7 @@ const connection = require('../database/db');
 
 
 
-router.get("/api/users", (req,res)=> {
 
-    res.send("Usuarios existentes")
-
-});
 
 
 
@@ -34,22 +30,34 @@ router.post('/register', async (req, res)=> {
     const password = req.body.password;
     let passwordHaash = await bcryptjs.hash(password, 8);
 
-    connection.query('INSERT INTO usuarios SET ?',{user:user, name:name, country:country, password:passwordHaash}, async(error, results)=> {
-        if (error) {
-            console.log(error);
-        }else{
-           res.render('register', {
-               alert:true,
-               alerTitle: "Registro",
-               alertMessage:"Usuario creado con exito",
-               alertIcon:"success",
-               showConfirmButton:false,
-               timer: 1500,
-               ruta: ""
-           })
-        }
-    })
+            connection.query('INSERT INTO usuarios SET ?',{user:user, name:name, country:country, password:passwordHaash}, async(error, results)=> {
+                if (error) {
+                    res.render('register',{
+                        alert:false,
+                        alerTitle: "Registro",
+                        alertMessage:"nombre de usuario ya existe, intente otro",
+                        alertIcon:"error",
+                        showConfirmButton:false,
+                        timer: 15000,
+                        ruta: "register"
+                    })
+                    console.log(error)
+                }else{
+                   res.render('register', {
+                       alert:true,
+                       alerTitle: "Registro",
+                       alertMessage:"Usuario creado con exito",
+                       alertIcon:"success",
+                       showConfirmButton:false,
+                       timer: 1500,
+                       ruta: ""
+                   })
+                }
+            })
+
 });
+
+
 
 
 
@@ -69,13 +77,12 @@ router.post('/auth', async (req, res)=> {
                         timer: 15000,
                         ruta: 'login'    
                     });
-				
-				//Mensaje simple y poco vistoso
-                //res.send('Incorrect Username and/or Password!');				
+							
 			} else {         
 				//creamos una var de session y le asignamos true si INICIO SESSION       
-				req.session.loggedin = true;                
-				req.session.name = results[0].name;
+				req.session.loggedin = true;    
+                data = results;            
+				req.session.user = results[0].user;
 				res.render('login', {
 					alert: true,
 					alertTitle: "Conexión exitosa",
@@ -83,7 +90,8 @@ router.post('/auth', async (req, res)=> {
 					alertIcon:'success',
 					showConfirmButton: false,
 					timer: 1500,
-					ruta: ''
+					ruta: '',
+                    
 				});        			
 			}			
 			res.end();
@@ -92,17 +100,20 @@ router.post('/auth', async (req, res)=> {
 });
 
 router.get ("/", (req, res)=> {
-    if (req.session.loggedin) {
-        res.render("index",{
-            login: true,
-            name: req.session.name
-        });
-    }else {
-        res.render("index", {
-            login:false,
-            name:"Debe iniciar sesion"
-        })
-    }
+    connection.query("SELECT * FROM usuarios", (error, results) => {
+        if (req.session.loggedin) {
+            res.render("index",{
+                login: true,
+                user: req.session.user,
+                data: results
+            });
+        }else {
+            res.render("index", {
+                login:false,
+                user:"Debe iniciar sesion"
+            })
+        }
+    })
 })
 
 
@@ -113,5 +124,15 @@ router.get("/logout", (req, res)=> {
 })
 
 
+router.get("/api/users", (req, res)=> {
+    connection.query("SELECT * FROM usuarios", (error, results) => {
+        if(error){
+            console.log(error)
+        } else {             
+           res.send(results)          
+        }
+    });
+    
+});
 
 module.exports = router;

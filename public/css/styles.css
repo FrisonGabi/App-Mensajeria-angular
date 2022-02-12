@@ -69,3 +69,29 @@ body {
 .btn-register:focus{
     box-shadow: 0 0 0 3px rgba(121, 82, 179,0.25);
 }
+
+
+.div-form-register {
+    width: 350px;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.register-form {
+    width: 100%;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.register-form input {
+    padding:5px
+}
+.register-form select {
+    padding:5px
+}
