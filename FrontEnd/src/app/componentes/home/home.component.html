@@ -1,0 +1,12 @@
+<form [formGroup]="msgForm" (submit)="sendMsg()">
+
+    <input type="text" formControlName="usuarioOrigen" style="display: none;">
+    <select formControlName="usuarioDestino" id="usuarioDestino" required>
+        
+        <option value="gabi">gabi</option>
+        <option value="test">test</option>
+        
+    </select>   
+    <textarea formControlName="mensaje" id="mensaje" minlength="4" maxlength="144" required></textarea>
+    <button>Enviar</button>
+</form>

@@ -1,0 +1,69 @@
+.form-login{  
+    margin: 100px auto; 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 450px;
+    height: 500px;
+    gap: 18px;
+    color: rgb(195, 195, 195);
+    
+}
+hr{
+    border-color: rgb(212, 215, 216);
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.form-login label{
+    font-size: 18px
+}
+
+.form-login input[type="text"], input[type="password"]{
+    
+    color: white;
+    font-size: 15px;
+    width: 250px;
+    margin-left: 25px;
+    border: none;
+    border-left: 2px solid rgb(0, 191, 255);
+    background-color: rgb(100, 128, 141);
+    outline: none;
+}
+.div-form-inline {
+    display: inline;
+}
+
+
+.btns{
+    color: rgb(212, 215, 216);
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    
+}
+
+.btn-login {
+    color: rgb(195, 195, 195);
+    width: auto;
+    padding: 8px;
+    font-size: 18px;
+    background-color: rgb(100, 128, 141);
+    border: none;
+    border-bottom: 2px solid rgb(50, 245, 15);
+    cursor: pointer;
+}
+.btn-login:hover{
+    color: rgb(50, 245, 15);
+}
+
+
+.btn-register{
+    color: rgb(212, 215, 216);
+    text-decoration: none;
+    padding: 8px;
+    font-size: 18px;
+    border-bottom: 2px solid rgb(255, 0, 0);
+}
+.btn-register:hover{
+    color: rgb(255, 0, 0);
+}

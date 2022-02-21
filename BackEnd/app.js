@@ -3,7 +3,7 @@ const express = require("express");
 const dotenv = require('dotenv')
 const session = require('express-session')
 const morgan = require('morgan');
-
+const cors = require('cors')
 
 
 const app = express();
@@ -12,7 +12,7 @@ const app = express();
 app.use(express.urlencoded({extended:false}));
 app.use(express.json())
 app.use(morgan('dev'));
-
+app.use(cors())
 app.set('view engine', 'ejs');
 
 

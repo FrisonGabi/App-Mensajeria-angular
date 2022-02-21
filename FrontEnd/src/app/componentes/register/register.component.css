@@ -1,0 +1,81 @@
+.form-register{  
+    margin: 100px auto; 
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 450px;
+    height: 500px;
+    gap: 18px;
+    color: rgb(195, 195, 195);
+    
+}
+hr{
+    border-color: rgb(212, 215, 216);
+}
+
+.div-form-inline {
+    display: inline;
+}
+
+.form-register label{
+    font-size: 18px
+}
+
+.form-register input[type="text"], input[type="password"]{
+    
+    color: white;
+    font-size: 15px;
+    width: 250px;
+    margin-left: 25px;
+    border: none;
+    border-left: 2px solid rgb(0, 191, 255);
+    background-color: rgb(100, 128, 141);
+    outline: none;
+}
+
+
+.form-register select {
+    color: white;
+    background-color: rgb(100, 128, 141);
+    border: none;
+    border-left: 2px solid rgb(0, 191, 255);
+    outline: none;
+    font-size: 15px;
+    margin-left: 25px;
+    width: 380px;
+}
+
+.btns{
+    color: rgb(212, 215, 216);
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: baseline;
+}
+
+.btn-register {
+    color: rgb(195, 195, 195);
+    width: auto;
+    padding: 8px;
+    font-size: 18px;
+    
+    background-color: rgb(100, 128, 141);
+    border: none;
+    border-bottom: 2px solid rgb(50, 245, 15);
+    cursor: pointer;
+}
+.btn-register:hover{
+    color: rgb(50, 245, 15);
+}
+
+
+.btn-cancel{
+    color: rgb(212, 215, 216);
+    text-decoration: none;
+    padding: 8px;
+    font-size: 18px;
+    border-bottom: 2px solid rgb(255, 0, 0);
+}
+.btn-cancel:hover{
+    color: rgb(255, 0, 0);
+}

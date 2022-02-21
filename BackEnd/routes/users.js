@@ -5,9 +5,11 @@ const bcryptjs = require("bcryptjs");
 
 const connection = require('../database/db');
 const { route } = require('express/lib/application');
+const jwt = require('jsonwebtoken');
+const { token } = require('morgan');
 
 
-
+/*
 router.get('/login', (req,res)=> {
    res.render("login")
 });
@@ -81,12 +83,12 @@ router.post("/" ,async (req, res)=>{
                 ruta: '',
                 
             });  
-             */     
+               
         }
     })
 })
-
-
+*/   
+/*
 router.post('/auth', async (req, res)=> {
 	const user = req.body.user;
 	const password = req.body.password;    
@@ -157,13 +159,13 @@ router.get("/logout", (req, res)=> {
 
 /* END POINTS */
 
-/*
+
 router.get("/api/users", (req, res)=> {
-    connection.query("SELECT user FROM usuarios", (error, results) => {
+    connection.query("SELECT * FROM usuarios", (error, results) => {
         if(error){
             console.log(error)
         } else {             
-           res.send(results)          
+           res.json({results})          
         }
     });
     
@@ -172,40 +174,23 @@ router.get("/api/users", (req, res)=> {
 router.post('/login', async (req, res)=> {
 	const user = req.body.user;
 	const password = req.body.password;    
-    let passwordHash = await bcryptjs.hash(password, 8);
-	if (user && password) {
-		connection.query('SELECT * FROM usuarios WHERE user = ?', [user], async (error, results, fields)=> {
-			if( results.length == 0 || !(await bcryptjs.compare(password, results[0].password)) ) {    
-				res.render('login', {
-                        alert: true,
-                        alertTitle: "Error",
-                        alertMessage: "USUARIO y/o PASSWORD incorrectas",
-                        alertIcon:'error',
-                        showConfirmButton: false,
-                        timer: 15000,
-                        ruta: 'login'    
-                    });
-							
-			} else {         
-				//creamos una var de session y le asignamos true si INICIO SESION       
-				req.session.loggedin = true;    
-                data = results;            
-				req.session.user = results[0].user;
-				res.render('login', {
-					alert: true,
-					alertTitle: "Conexión exitosa",
-					alertMessage: "¡LOGIN CORRECTO!",
-					alertIcon:'success',
-					showConfirmButton: false,
-					timer: 1500,
-					ruta: '',
-                    
-				});        			
-			}			
-			res.end();
-		});
-	} 
-});
+    
+    connection.query("SELECT * FROM usuarios WHERE user=? AND password=?", [user,password], (error,results,fields) => {
+        if(results.length>0){
+          let data = JSON.stringify(results[0]);
+          const token = jwt.sign(data, "secreto")          
+          let user = results[0].user
+          res.json({user,token})
+
+          console.log(user);
+          console.log("inicio de sesion correcto")
+        }else{
+            res.json("usuario o clave incorrectos")
+        }
+    })
+}); 
+
+
 
 
 router.get(`/api/users/:user/messages/inbox`, (req,res)=>{
@@ -231,11 +216,11 @@ router.post('/api/users', async (req, res)=> {
     const state = req.body.state;
     const lastName = req.body.lastName;
     const password = req.body.password;
-    let passwordHaash = await bcryptjs.hash(password, 8);
-
-            connection.query('INSERT INTO usuarios SET ?',{user:user,lastName:lastName, name:name, country:country,state:state, password:passwordHaash}, async(error, results)=> {
+   
+            connection.query('INSERT INTO usuarios SET ?',{user:user,lastName:lastName, name:name, country:country,state:state, password:password}, async(error, results)=> {
                 if (error) {                   
                     console.log(error)
+                    res.json(error)
                 }else{
                    console.log("Usuario agregado")
                    res.json({"message": "usuario agregado"});
@@ -243,7 +228,6 @@ router.post('/api/users', async (req, res)=> {
             })
 
 });
-
 
 
 
@@ -264,7 +248,7 @@ router.post("/api/users/:user/messages" ,async (req, res)=>{
     let user = req.params["user"]
     const usuario_destino = req.body.usuarioDestino;
     const mensaje = req.body.mensaje;
-    const usuario_origen = req.session.user;
+    const usuario_origen = req.body.usuarioOrigen;
     console.log(usuario_destino);
 
     connection.query('INSERT INTO mensajes set?', {mensaje:mensaje,usuario_origen:usuario_origen, usuario_destino:usuario_destino}, async (error,ressults) =>{
@@ -278,6 +262,5 @@ router.post("/api/users/:user/messages" ,async (req, res)=>{
 })
 
 
-*/
 
 module.exports = router;

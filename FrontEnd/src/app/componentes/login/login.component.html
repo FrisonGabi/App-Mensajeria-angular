@@ -1,0 +1,28 @@
+  <div class="form-login">
+        <h2>Login</h2>
+        <form  [formGroup]="loginForm" (submit)="loginUser()">
+
+                <hr style="margin-top: 10px;">
+                <div class="div-form-inline">
+                        <label for="user">Usuario</label>
+                        <input type="text" formControlName="user" id="user"  required>
+                </div>        
+
+                <hr>
+                <div class="div-form-inline">
+                        <label for="password">Contraseña</label>
+                        <input type="password" formControlName="password" id="password"  required>
+                </div>
+
+                <hr>     
+                <div class="btns">  
+                     <a href="register" class="btn-register">Registrarse</a>
+                     <button class="btn-login">Aceptar</button>
+                     
+                </div>   
+
+        </form>    
+        
+    </div>
+
+
