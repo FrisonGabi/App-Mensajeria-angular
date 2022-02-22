@@ -1,0 +1,31 @@
+--codigo para la base de datos--
+
+CREATE SCHEMA app_mensajeria ;
+
+CREATE TABLE usuarios (
+  id INT NOT NULL auto_increment,
+  user VARCHAR(45) NOT NULL,
+  lastName VARCHAR(45) NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  country VARCHAR(45) NOT NULL,
+  state VARCHAR(45),
+  password VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE INDEX user_UNIQUE (user ASC) VISIBLE);
+
+
+create table mensajes (
+	id_msg int not null auto_increment,
+	mensaje varchar(144) not null,
+    usuario_origen varchar(45) not null,
+    usuario_destino varchar(45) not null,
+    primary key (id_msg)
+);
+
+-- En el directorio BackEnd abrir una terminal--
+npm install -> para instalar las dependencias
+nodemon app -> correr el servidor
+
+-- En el directorio FrontEnd abrir una terminal--
+npm install -> para instalar las dependencias
+ng serve -> correr el servidor

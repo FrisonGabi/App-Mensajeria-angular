@@ -1,12 +1,92 @@
-<form [formGroup]="msgForm" (submit)="sendMsg()">
+<nav class="nav">
+    <ul class="ul-nav" >
+        <div *ngIf="userLogged; else login">
+            <li class="li-nav">{{userLogged}}</li>
+        </div>
+        <ng-template #login>
+            <li class="li-nav">login</li>
+        </ng-template>
+        
+        <li class="li-nav"><a href="logout" class="logout" (click)="logOut()"  [routerLink]="['/login']">Logout</a></li>
+    </ul>
+</nav>
 
-    <input type="text" formControlName="usuarioOrigen" style="display: none;">
-    <select formControlName="usuarioDestino" id="usuarioDestino" required>
-        
-        <option value="gabi">gabi</option>
-        <option value="test">test</option>
-        
-    </select>   
-    <textarea formControlName="mensaje" id="mensaje" minlength="4" maxlength="144" required></textarea>
-    <button>Enviar</button>
-</form>
+
+<div class="container">
+
+<div class="btns">
+    <button class="btn" (click)="showDiv.enviar = !showDiv.enviados = false; showDiv.recibidos = false">
+        <p>Enviar mensaje</p>
+    </button>
+    <button class="btn" (click)="showDiv.recibidos= !showDiv.enviados = false; showDiv.enviar = false">
+        <p>Mensajes recibidos</p>
+    </button>
+
+    <button class="btn" (click)="showDiv.enviados= !showDiv.recibidos = false; showDiv.enviar = false">
+        <p>Mensajes Enviados</p>
+    </button>
+</div>
+
+<div class="mensajeria">
+
+    <div *ngIf="showDiv.enviar">
+
+        <form [formGroup]="msgForm" (submit)="sendMsg()" class="form-mensaje">
+
+            <input type="text" formControlName="usuarioOrigen" style="display: none;">
+            <div class="div-inline">
+                <label for="select">Seleccione Destinatario</label>           
+                
+            <select formControlName="usuarioDestino" id="usuarioDestino" class="select-style">       
+                <option *ngFor="let usuario of usuarios" [value]="usuario.user" >{{usuario.user}}</option>
+            </select>  
+            <hr> 
+            </div>
+            <div class="div-inline">
+            <label for="mensaje">Escriba su mensaje</label>
+            <textarea formControlName="mensaje" id="mensaje" minlength="4" maxlength="144" required></textarea>
+            </div>
+            <hr>
+            <button class="btn-enviar">Enviar</button>
+        </form>
+
+    </div>
+
+    
+    <div class="recibidos" *ngIf="showDiv.recibidos">
+        <table>
+            <tr>
+                <th>Remitente</th>
+                <th>Destinatario</th>
+                <th>Mensaje</th>
+            </tr>
+            <tr *ngFor="let mensaje of mensajesRecibidos">
+                <td>{{mensaje.usuario_origen}}</td>
+                <td>{{mensaje.usuario_destino}}</td>
+                <td>{{mensaje.mensaje}}</td>
+            </tr>
+          </table>
+    </div>
+
+    
+    <div class="enviados" *ngIf="showDiv.enviados">
+
+        <table class="table-enviados">
+            <tr class="tr-enviados">
+                <th>Remitente</th>
+                <th>Destinatario</th>
+                <th>Mensaje</th>
+            </tr>
+            <tr *ngFor="let mensaje of mensajesEnviados">
+                <td>{{mensaje.usuario_origen}}</td>
+                <td>{{mensaje.usuario_destino}}</td>
+                <td>{{mensaje.mensaje}}</td>
+            </tr>
+        </table>
+
+
+
+    </div>
+
+</div>
+</div>

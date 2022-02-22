@@ -27,18 +27,18 @@ export class LoginComponent implements OnInit {
 
 
   loginUser(){
-     
+ 
     this.loginService.loginService(this.loginForm.value).subscribe((result:any)=>{
+
       console.log(result)
       localStorage.setItem("token", result.token);
       localStorage.setItem("user", result.user);
       this.router.navigate(["home"])
       
-    })
+    })  
+    
 
 }
-
-
 
 
 }
